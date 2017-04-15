@@ -1,5 +1,5 @@
 import {Router} from 'Express';
-import {requesters} from '../data/data.js';
+import {appraisals} from '../data/data.js';
 const router = new Router();
 import {getCollection} from '../db.js';
 

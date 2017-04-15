@@ -1,6 +1,6 @@
 export default class {
 constructor(email, type, start, end, address){
-     this.email;
+     this.email = email;
      this.type = type;
      this.start = start;
      this.end = end;
@@ -14,7 +14,7 @@ constructor(email, type, start, end, address){
     get start(){ return this._start;}
 
     get end(){ return this._end;}
-    get address() {return this._address}
+    get address() {return this._address;}
    set email(email){this._email = email;}
 
     set type(type){this._type = type;}
