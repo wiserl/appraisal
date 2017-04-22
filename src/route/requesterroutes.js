@@ -20,4 +20,11 @@ router.get ('/', (req, res) => {
         return res.json(requesters);
     })
 });
+
+router.get ( '/:name', (req,res) => {
+
+  let requester = requesters.filter( requesters => requesters.name === req.params.name);
+  return res.json(requester);
+
+});
     export default router; 

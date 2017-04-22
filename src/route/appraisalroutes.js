@@ -20,4 +20,12 @@ router.get ('/', (req, res) => {
         return res.json(appraisals);
     })
 });
+router.get ( '/:types', (req,res) => {
+
+  let appraisal = appraisals.filter( appraisals => appraisals.type === req.params.type);
+  return res.json(appraisals);
+
+});
     export default router; 
+
+    

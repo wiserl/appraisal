@@ -5,7 +5,6 @@ import {getCollection} from '../db.js';
 
 
 
-
 const getAllRegions = async() => {
   const regions = await getCollection('regions');
 
@@ -20,4 +19,6 @@ router.get ('/', (req, res) => {
         return res.json(regions);
     })
 });
+    
+    
     export default router; 
