@@ -27,9 +27,9 @@ router.get ('/', (req, res) => {
         return res.json(appraisals);
     })
 });
-router.get ( '/:types', (req,res) => {
+router.get ( '/:email', (req,res) => {
 
-  let appraisal = appraisals.filter( appraisals => appraisals.type === req.params.type);
+  let appraisal = appraisals.filter( appraisals => appraisals.email === req.params.email);
   return res.json(appraisals);
 
 });
@@ -50,6 +50,30 @@ const storeAppraisal = async(appraisal) => {
     const appraisalCollection = await getCollection ('appraisals');
     appraisalCollection.insertOne(appraisal);
 }  
+    
+    
+//     router.delete( '/:appraisalsEmail', (req,res) => {
+//   removeAppraisal(req.params.appraisalEmail);
+//   return res.send( `appraisals ${req.params.appraisalsEmail} has been deleted` );
+// });
+
+    
+//     const removeAppraisal = async(appraisalsEmail) => {
+//   const appraisalCollection = await getCollection('appraisals');
+//   appraisalCollection.updateOne(
+//     { email: parseInt(appraisalsEmail) },
+   
+//   );
+// }
+    
+    
+//     const deleteAppraisal = async(appraisalsEmail) => {
+//    const appraisalCollection = await getCollection('appraisals');
+//    appraisalCollection.deleteOne(
+//      { email: parseInt(appraisalsEmail) }
+//    );
+//  }
+    
     export default router; 
 
 
