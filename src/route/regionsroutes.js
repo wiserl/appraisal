@@ -25,6 +25,12 @@ router.get ('/', (req, res) => {
         return res.json(regions);
     })
 });
+router.get ( '/:name', (req,res) => {
+
+  let region = regions.filter( regions => regions.email === req.params.name);
+  return res.json(regions);
+
+});
     
   router.post('/', (req,res)=>  {
     let region = new Region(

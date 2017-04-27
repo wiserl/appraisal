@@ -26,6 +26,13 @@ router.get ('/', (req, res) => {
     })
 });
 
+router.get ( '/:type', (req,res) => {
+
+  let appraisalType = appraisalTypes.filter( appraisalTypes => appraisalTypes.type === req.params.type);
+  return res.json(appraisalTypes);
+
+});
+
  router.post('/', (req,res)=>  {
     let appraisalTypes = new AppraisalType(
         req.body.type,
