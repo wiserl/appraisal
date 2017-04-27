@@ -40,4 +40,27 @@ const storeRegion = async(region) => {
     const regionCollection = await getCollection ('regions');
     regionCollection.insertOne(region);
 }  
-    export default router; 
+    
+
+        router.delete( '/:regionsName', (req,res) => {
+  removeRegion(req.params.regionsName);
+  return res.send( `regions ${req.params.regionsName} has been deleted` );
+});
+
+    
+    const removeRegion = async(regionsName) => {
+  const regionCollection = await getCollection('regions');
+  regionCollection.updateOne(
+    { name: parseInt(regionName) },
+   
+  );
+}
+    
+    
+    const deleteRegion = async(regionsName) => {
+   const regionCollection = await getCollection('regions');
+   regionCollection.deleteOne(
+     { email: parseInt(regionsName) }
+   );
+ }
+export default router; 

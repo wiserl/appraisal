@@ -50,4 +50,27 @@ const storeRequester = async(requester) => {
     requesterCollection.insertOne(requester);
 }
 
+    
+     router.delete( '/:requestersName', (req,res) => {
+  removeRequester(req.params.requestersName);
+  return res.send( `requesters ${req.params.requestersName} has been deleted` );
+});
+
+    
+    const removeRequesters = async(requestersName) => {
+  const requestersCollection = await getCollection('requesters');
+  requestersCollection.updateOne(
+    { email: parseInt(requestersName) },
+   
+  );
+}
+    
+    
+    const deleteRequesters = async(requestersName) => {
+   const requestersCollection = await getCollection('requesters');
+   requestersCollection.deleteOne(
+     { email: parseInt(requestersName) }
+   );
+ }
+    
     export default router; 

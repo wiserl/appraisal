@@ -11,7 +11,7 @@ const getAllAppraisalTypes = async() => {
   return await ( await appraisalTypes.find({})).toArray();
 }
 const getAppraisalType = async(type) => {
-  name = parseInt(type);
+  type = parseInt(type);
   const appraisalTypeCollection = await getCollection('appraisalTypes');
   const value = await ( await appraisalTypeCollection.find({ type }) ).toArray();
   return value;
@@ -42,6 +42,32 @@ const storeAppraisalType = async(appraisalTypes) => {
     const appraisalTypeCollection = await getCollection ('appraisalTypes');
     appraisalTypeCollection.insertOne(appraisalTypes);
 }  
+
+  router.delete( '/:appraisalTypesType', (req,res) => {
+  removeAppraisalType(req.params.appraisalTypesType);
+  return res.send( `appraisalTypes ${req.params.appraisalTypesType} has been deleted` );
+});
+
+    
+    const removeAppraisalTypes = async(appraisalTypesType) => {
+  const appraisalTypeCollection = await getCollection('appraisalTypes');
+  appraisalTypeCollection.updateOne(
+    { email: parseInt(appraisalTypesType) },
+   
+  );
+}
+    
+    
+    const deleteAppraisalType = async(appraisalTypesType) => {
+   const appraisalTypeCollection = await getCollection('appraisalTypes');
+   appraisaTypelCollection.deleteOne(
+     { email: parseInt(appraisalTypesType) }
+   );
+ }
+
+
+
+
 
 export default router;
 

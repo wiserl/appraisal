@@ -52,27 +52,49 @@ const storeAppraisal = async(appraisal) => {
 }  
     
     
-//     router.delete( '/:appraisalsEmail', (req,res) => {
-//   removeAppraisal(req.params.appraisalEmail);
-//   return res.send( `appraisals ${req.params.appraisalsEmail} has been deleted` );
-// });
+    router.delete( '/:appraisalsEmail', (req,res) => {
+  removeAppraisal(req.params.appraisalsEmail);
+  return res.send( `appraisals ${req.params.appraisalsEmail} has been deleted` );
+});
 
     
-//     const removeAppraisal = async(appraisalsEmail) => {
-//   const appraisalCollection = await getCollection('appraisals');
-//   appraisalCollection.updateOne(
-//     { email: parseInt(appraisalsEmail) },
+    const removeAppraisal = async(appraisalsEmail) => {
+  const appraisalCollection = await getCollection('appraisals');
+  appraisalCollection.updateOne(
+    { email: parseInt(appraisalsEmail) },
    
-//   );
-// }
+  );
+}
     
     
-//     const deleteAppraisal = async(appraisalsEmail) => {
-//    const appraisalCollection = await getCollection('appraisals');
-//    appraisalCollection.deleteOne(
-//      { email: parseInt(appraisalsEmail) }
-//    );
-//  }
+    const deleteAppraisal = async(appraisalsEmail) => {
+   const appraisalCollection = await getCollection('appraisals');
+   appraisalCollection.deleteOne(
+     { email: parseInt(appraisalsEmail) }
+   );
+ }
+
+  router.put( '/:appraisalsEmail', (req,res) => {
+  updateAppraisal(req.params.appraisalsEmail);
+  return res.send( `appraisals ${req.params.appraisalsEmail} has been updated` );
+});
+
+    
+    const updateAppraisal = async(appraisalsEmail) => {
+  const appraisalCollection = await getCollection('appraisals');
+  appraisalCollection.updateOne(
+    { email: parseInt(appraisalsEmail) },
+   
+  );
+}
+    
+    
+    const updateAppraisal = async(appraisalsEmail) => {
+   const appraisalCollection = await getCollection('appraisals');
+   appraisalCollection.deleteOne(
+     { email: parseInt(appraisalsEmail) }
+   );
+ }
     
     export default router; 
 
