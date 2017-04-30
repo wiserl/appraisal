@@ -8,10 +8,10 @@ import Region from '../data/region.js';
 const getAllRegions = async() => {
   const regions = await getCollection('regions');
 
-  return await ( await regions.find({})).toArray();
+  return await ( await regions.find({active: true})).toArray();
 }
 const getRegion = async(name) => {
-  name = parseInt(name);
+  name = (name);
   const regionCollection = await getCollection('regions');
   const value = await ( await regionCollection.find({ name }) ).toArray();
   return value;
@@ -25,7 +25,7 @@ router.get ('/', (req, res) => {
         return res.json(regions);
     })
 });
-router.get ( '/:name', (req,res) => {
+router.get ( '/:regions', (req,res) => {
 
   let region = regions.filter( regions => regions.email === req.params.name);
   return res.json(regions);
@@ -48,25 +48,30 @@ const storeRegion = async(region) => {
 }  
     
 
-        router.delete( '/:regionsName', (req,res) => {
-  removeRegion(req.params.regionsName);
-  return res.send( `regions ${req.params.regionsName} has been deleted` );
+           router.delete( '/:name', (req,res) => {
+   deleteRegion(req.params.name);
+   console.log(req.params.name);
+  return res.send( `regions ${req.params.name} has been deleted` );
 });
 
     
-    const removeRegion = async(regionsName) => {
-  const regionCollection = await getCollection('regions');
-  regionCollection.updateOne(
-    { name: parseInt(regionName) },
-   
+  
+ const removeRegion = async(name) => {
+  const appraisalCollection = await getCollection('regions');
+  appraisalCollection.updateOne(
+    { _name: (name) },
+    {
+      $set: { "active": false }
+    }
   );
 }
+
+ const deleteRegion = async(name) => {
+   const appraisalCollection = await getCollection('regions');
+   appraisalCollection.deleteOne(
+     { _name: (name) }
     
-    
-    const deleteRegion = async(regionsName) => {
-   const regionCollection = await getCollection('regions');
-   regionCollection.deleteOne(
-     { email: parseInt(regionsName) }
    );
+  
  }
 export default router; 

@@ -9,11 +9,11 @@ const router = new Router();
 const getAllRequesters = async() => {
   const requesters = await getCollection('requesters');
 
-  return await ( await requesters.find({})).toArray();
+  return await ( await requesters.find({active: true})).toArray();
 }
 
 const getRequester = async(name) => {
-  name = parseInt(name);
+  name = (name);
   const requestersCollection = await getCollection('requesters');
   const value = await ( await requestersCollection.find({ name }) ).toArray();
   return value;
@@ -28,10 +28,10 @@ router.get ('/', (req, res) => {
     })
 });
 
-router.get ( '/:name', (req,res) => {
+router.get ( '/:requesters', (req,res) => {
 
   let requester = requesters.filter( requesters => requesters.name === req.params.name);
-  return res.json(requester);
+  return res.json(requesters);
 
 });
 
@@ -51,25 +51,26 @@ const storeRequester = async(requester) => {
 }
 
     
-     router.delete( '/:requestersName', (req,res) => {
-  removeRequester(req.params.requestersName);
-  return res.send( `requesters ${req.params.requestersName} has been deleted` );
+     router.delete( '/:name', (req,res) => {
+  deleteRequesters(req.params.name);
+  return res.send( `requesters ${req.params.name} has been deleted` );
 });
 
     
-    const removeRequesters = async(requestersName) => {
+    const removeRequesters = async(name) => {
   const requestersCollection = await getCollection('requesters');
   requestersCollection.updateOne(
-    { email: parseInt(requestersName) },
-   
+    { _name: (name) },
+   { $set: { "active": false }
+   }
   );
 }
     
     
-    const deleteRequesters = async(requestersName) => {
+    const deleteRequesters = async(name) => {
    const requestersCollection = await getCollection('requesters');
    requestersCollection.deleteOne(
-     { email: parseInt(requestersName) }
+     { _name: (name) }
    );
  }
     

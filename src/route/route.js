@@ -8,12 +8,12 @@ const router = new Router();
 const getAllAppraisalTypes = async() => {
   const appraisalTypes = await getCollection('appraisalTypes');
 
-  return await ( await appraisalTypes.find({})).toArray();
+  return await ( await appraisalTypes.find({active: true})).toArray();
 }
-const getAppraisalType = async(type) => {
-  type = parseInt(type);
+const getAppraisalType = async(region) => {
+  region = (region);
   const appraisalTypeCollection = await getCollection('appraisalTypes');
-  const value = await ( await appraisalTypeCollection.find({ type }) ).toArray();
+  const value = await ( await appraisalTypeCollection.find({ region }) ).toArray();
   return value;
 }
 
@@ -26,7 +26,7 @@ router.get ('/', (req, res) => {
     })
 });
 
-router.get ( '/:type', (req,res) => {
+router.get ( '/:appraisalTypes', (req,res) => {
 
   let appraisalType = appraisalTypes.filter( appraisalTypes => appraisalTypes.type === req.params.type);
   return res.json(appraisalTypes);
@@ -50,25 +50,27 @@ const storeAppraisalType = async(appraisalTypes) => {
     appraisalTypeCollection.insertOne(appraisalTypes);
 }  
 
-  router.delete( '/:appraisalTypesType', (req,res) => {
-  removeAppraisalType(req.params.appraisalTypesType);
-  return res.send( `appraisalTypes ${req.params.appraisalTypesType} has been deleted` );
+  router.delete( '/:region', (req,res) => {
+  deleteAppraisalType(req.params.region);
+  return res.send( `appraisalTypes ${req.params.region} has been deleted` );
 });
 
     
-    const removeAppraisalTypes = async(appraisalTypesType) => {
+    const removeAppraisalTypes = async(region) => {
   const appraisalTypeCollection = await getCollection('appraisalTypes');
   appraisalTypeCollection.updateOne(
-    { email: parseInt(appraisalTypesType) },
+    { _region: (region) },
+     { $set: { "active": false }
+   }
    
   );
 }
     
     
-    const deleteAppraisalType = async(appraisalTypesType) => {
+    const deleteAppraisalType = async(region) => {
    const appraisalTypeCollection = await getCollection('appraisalTypes');
-   appraisaTypelCollection.deleteOne(
-     { email: parseInt(appraisalTypesType) }
+   appraisalTypeCollection.deleteOne(
+     { _region: (region) }
    );
  }
 

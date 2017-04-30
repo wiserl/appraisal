@@ -9,29 +9,30 @@ import Appraisal from '../data/appraisal.js'
 const getAllAppraisals = async() => {
   const appraisals = await getCollection('appraisals');
 
-  return await ( await appraisals.find({})).toArray();
+  return await ( await appraisals.find({active: true})).toArray();
 }
 
 const getAppraisal = async(address) => {
-  name = parseInt(address);
+  address = (address);
   const appraisalCollection = await getCollection('appraisals');
   const value = await ( await appraisalCollection.find({ address }) ).toArray();
   return value;
 }
 
-router.get ('/', (req, res) => {
-
-  return getAllAppraisals()
-    .then(appraisals => {
-        console.log(appraisals);
-        return res.json(appraisals);
-    })
+router.get( '/', (req, res) => {
+  return getAllAppraisals().then(
+    appraisals => {
+      return res.json(appraisals);
+    });
 });
-router.get ( '/:email', (req,res) => {
 
-  let appraisal = appraisals.filter( appraisals => appraisals.email === req.params.email);
-  return res.json(appraisals);
-
+router.get( '/:appraisals', (req,res) => {
+  return getAppraisals( req.params.appraisals ).then(
+    appraisals => {
+      console.log(appraisals);
+      return res.json(appraisals);
+    }
+  );
 });
 
   router.post('/', (req,res)=>  {
@@ -52,49 +53,48 @@ const storeAppraisal = async(appraisal) => {
 }  
     
     
-    router.delete( '/:appraisalsEmail', (req,res) => {
-  removeAppraisal(req.params.appraisalsEmail);
-  return res.send( `appraisals ${req.params.appraisalsEmail} has been deleted` );
+    router.delete( '/:address', (req,res) => {
+   deleteAppraisal(req.params.address);
+   console.log(req.params.address);
+  return res.send( `appraisals ${req.params.address} has been deleted` );
 });
 
     
-    const removeAppraisal = async(appraisalsEmail) => {
+  
+ const removeAppraisal = async(address) => {
   const appraisalCollection = await getCollection('appraisals');
   appraisalCollection.updateOne(
-    { email: parseInt(appraisalsEmail) },
-   
+    { _address: (address) },
+    {
+      $set: { "active": false }
+    }
   );
 }
-    
-    
-    const deleteAppraisal = async(appraisalsEmail) => {
+
+ const deleteAppraisal = async(address) => {
    const appraisalCollection = await getCollection('appraisals');
    appraisalCollection.deleteOne(
-     { email: parseInt(appraisalsEmail) }
+     { _address: (address) }
+    
    );
+  
  }
 
-  router.put( '/:appraisalsEmail', (req,res) => {
-  updateAppraisal(req.params.appraisalsEmail);
-  return res.send( `appraisals ${req.params.appraisalsEmail} has been updated` );
-});
+//   router.put( '/:address', (req,res) => {
+//   updateAppraisal(req.params.address);
+//   return res.send( `appraisals ${req.params.address} has been updated` );
+// });
 
     
-    const updateAppraisal = async(appraisalsEmail) => {
-  const appraisalCollection = await getCollection('appraisals');
-  appraisalCollection.updateOne(
-    { email: parseInt(appraisalsEmail) },
-   
-  );
-}
+ 
     
     
-    const updateAppraisal = async(appraisalsEmail) => {
-   const appraisalCollection = await getCollection('appraisals');
-   appraisalCollection.deleteOne(
-     { email: parseInt(appraisalsEmail) }
-   );
- }
+//     const update1Appraisal = async(address) => {
+//    const appraisalCollection = await getCollection('address');
+//    appraisalCollection.deleteOne(
+//      { address: parseInt(address) }
+//    );
+//  }
     
     export default router; 
 

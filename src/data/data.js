@@ -14,7 +14,7 @@ let carl = new Requester ("carl", "carl@carl.com", 14);
 let jake = new Requester ("jake", "jake@jake.com", 14);
 
 let robinave = new Appraisal ("carl@carl.com", 1004, "3/14/17", "3/18/17", "Colorado");
-let batonRouge = new Appraisal ("carl@carl.com", 1004, "4/14/17", "4/18/17", "New Mexico");
+let batonRouge = new Appraisal ("jake@jake.com", 1004, "4/14/17", "4/18/17", "New Mexico");
 
 //let data = [greg, colorado, carl, robinave];
 export let appraisalTypes = [greg, mike];
