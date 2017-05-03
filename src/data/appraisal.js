@@ -1,12 +1,15 @@
 export default class {
-constructor(email, type, start, end, address){
+constructor( id, email, type, start, end, address){
+     this.id= id;
      this.email = email;
      this.type = type;
      this.start = start;
      this.end = end;
      this.address = address;
+     this.active= true;
    }
-
+get id() { return this._id;}
+ 
  get email(){return this._email;}
 
     get type(){return this._type;}
@@ -15,6 +18,8 @@ constructor(email, type, start, end, address){
 
     get end(){ return this._end;}
     get address() {return this._address;}
+  
+  set id(id) {this._id = id;}
    set email(email){this._email = email;}
 
     set type(type){this._type = type;}

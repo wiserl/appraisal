@@ -1,4 +1,4 @@
-import {Router} from 'Express';
+import {Router} from 'express';
 import {getCollection} from '../db.js';
 import {requesters} from '../data/data.js';
 import Requester from '../data/requester.js';

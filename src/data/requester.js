@@ -5,6 +5,7 @@ export default class  {
     this.name = name;
     this.email = email;
     this.appraisals = appraisals;
+    this.active= true;
   }
  get name(){return this._name;}
 

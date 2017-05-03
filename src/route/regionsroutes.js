@@ -1,4 +1,4 @@
-import {Router} from 'Express';
+import {Router} from 'express';
 import {regions} from '../data/data.js';
 const router = new Router();
 import {getCollection} from '../db.js';
@@ -27,7 +27,7 @@ router.get ('/', (req, res) => {
 });
 router.get ( '/:regions', (req,res) => {
 
-  let region = regions.filter( regions => regions.email === req.params.name);
+  let region = regions.filter( regions => regions.name === req.params.name);
   return res.json(regions);
 
 });

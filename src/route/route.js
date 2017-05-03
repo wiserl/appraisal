@@ -1,4 +1,4 @@
-import {Router} from 'Express';
+import {Router} from 'express';
 import {appraisalType} from '../data/data.js';
 import {getCollection} from '../db.js';
 import AppraisalType from '../data/appraisaltype.js'

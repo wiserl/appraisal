@@ -3,6 +3,7 @@ export default class  {
         this.name = name;
         this.turnTime = turnTime;
         this.cost = cost;
+        this.active= true;
     }
 
  get name(){return this._name;}

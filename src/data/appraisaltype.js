@@ -4,6 +4,7 @@ export default class {
        this.cost = cost;
        this.turnTime = turnTime;
        this.region = region; 
+       this.active= true;
     }
     get type(){return this._type;}
 
