@@ -34,7 +34,7 @@ router.get ( '/:regions', (req,res) => {
     
   router.post('/', (req,res)=>  {
     let region = new Region(
-       req.body.id,
+       
         req.body.name,
         req.body.turnTime,
         req.body.cost

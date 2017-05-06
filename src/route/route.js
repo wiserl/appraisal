@@ -26,12 +26,17 @@ router.get ('/', (req, res) => {
     })
 });
 
-router.get ( '/:appraisalTypes', (req,res) => {
-
-  let appraisalType = appraisalTypes.filter( appraisalTypes => appraisalTypes.type === req.params.type);
-  return res.json(appraisalTypes);
-
+ router.get( '/:region', (req,res) => {
+  regionAppraisalType(req.params.region); 
+  return res.send( `appraisalTypes ${req.params.region}` );
 });
+
+    const regionAppraisalType = async(region) => {
+   const appraisalTypeCollection = await getCollection('appraisalTypes');
+   appraisalTypeCollection.find(
+     { _region: (region) }
+   );
+ }
 
  router.post('/', (req,res)=>  {
     let appraisalTypes = new AppraisalType(
