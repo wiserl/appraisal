@@ -37,7 +37,7 @@ router.get( '/:appraisals', (req,res) => {
 
   router.post('/', (req,res)=>  {
     let appraisal = new Appraisal(
-        req.body.id,
+        
         req.body.email,
         req.body.type,
         req.body.start,
@@ -82,8 +82,13 @@ const storeAppraisal = async(appraisal) => {
  }
 
   router.put( '/:address', (req,res) => {
-  updateAppraisal(req.params.address);
-  return res.send( `appraisals ${req.params.address} has been updated` );
+    console.log(req.body);
+   updateAppraisal(req.body).then( appraisal => {
+   return res.send( `appraisals ${req.params.address} has been updated` );
+   })
+   .catch(err => {console.log(err)
+     res.send( `error` );
+   })
 });
 
     
@@ -92,8 +97,8 @@ const storeAppraisal = async(appraisal) => {
     
     const updateAppraisal = async(address) => {
    const appraisalCollection = await getCollection('appraisals');
-   appraisalCollection.updateOne(
-     { _address: (address) }
+   await appraisalCollection.updateOne(
+    {$set: { _address: (address) }}
    );
  }
     
