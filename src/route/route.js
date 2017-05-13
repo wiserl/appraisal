@@ -3,6 +3,7 @@ import {appraisalType} from '../data/data.js';
 import {getCollection} from '../db.js';
 import AppraisalType from '../data/appraisaltype.js'
 
+
 const router = new Router();
 
 const getAllAppraisalTypes = async() => {
@@ -10,10 +11,10 @@ const getAllAppraisalTypes = async() => {
 
   return await ( await appraisalTypes.find({active: true})).toArray();
 }
-const getAppraisalType = async(region) => {
-  region = (region);
+const getAppraisalType = async(_region) => {
+  
   const appraisalTypeCollection = await getCollection('appraisalTypes');
-  const value = await ( await appraisalTypeCollection.find({ region }) ).toArray();
+  const value = await ( await appraisalTypeCollection.find({ _region }) ).toArray();
   return value;
 }
 
@@ -26,17 +27,20 @@ router.get ('/', (req, res) => {
     })
 });
 
- router.get( '/:region', (req,res) => {
-  regionAppraisalType(req.params.region); 
-  return res.send( `appraisalTypes ${req.params.region}` );
-});
 
-    const regionAppraisalType = async(region) => {
-   const appraisalTypeCollection = await getCollection('appraisalTypes');
-   appraisalTypeCollection.find(
-     { _region: (region) }
-   );
- }
+  router.get( '/:appraisalTypes', (req,res) => {
+  getAppraisalType(req.params.appraisalTypes) .then(
+    appraisalTypes => {
+      console.log(appraisalTypes);
+      return res.json(appraisalTypes)
+    }
+  );
+  });
+ 
+
+
+
+
 
  router.post('/', (req,res)=>  {
     let appraisalTypes = new AppraisalType(

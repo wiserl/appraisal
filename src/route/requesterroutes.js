@@ -28,9 +28,9 @@ router.get ('/', (req, res) => {
     })
 });
 
-router.get ( '/:requesters', (req,res) => {
+router.get ( '/:name', (req,res) => {
 
-  let requester = requesters.filter( requesters => requesters.name === req.params.name);
+  let requester = requesters.find( requesters => requesters.name === req.params.name);
   return res.json(requesters);
 
 });

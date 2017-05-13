@@ -81,7 +81,7 @@ const storeAppraisal = async(appraisal) => {
   
  }
 
-  router.put( '/:address', (req,res) => {
+  router.put( '/', (req,res) => {
     console.log(req.body);
    updateAppraisal(req.body).then( appraisal => {
    return res.send( `appraisals ${req.params.address} has been updated` );
